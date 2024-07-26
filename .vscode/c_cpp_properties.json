@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:\\Users\\User\\Desktop\\Tecnicas_de_Programacao\\Tecnicas-de-Programacao"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "windows-gcc-x64",
+            "compilerPath": "C:/MinGW/bin/gcc.exe",
+            "cppStandard": "gnu++11",
+            "cStandard": "gnu11"
+        }
+    ],
+    "version": 4
+}
