@@ -291,13 +291,14 @@ int Percorre_DFS(Grafo *G, Fila_Visitados *F, Vertice *V){
     int Ret = -1;
     
     //Marca como visitado
-    Enfileira(F,V->IdVertice);    
+    Enfileira(F,V->IdVertice);
+	
 
     //Percorre as arestas
     for (A=V->Inicio;A!=NULL && Ret == -1;A = A->Prox){
     
         if (Visitado(F->Inicio, A->IdVertice) == -1) { //N?o visitado                
-            //Atualiza a origem com o v?rtice destino da aresta existente e percorre os caminhos
+
             V = BuscaVerticePorId(G->Inicio, A->IdVertice);
             Ret = Percorre_DFS(G, F, V);
         }
@@ -305,46 +306,21 @@ int Percorre_DFS(Grafo *G, Fila_Visitados *F, Vertice *V){
         	Ret = 1;
 		}
     }
+    
 	
 	return Ret;    
 }
 
-void Percorre_DFS_Debug(Grafo *G, Fila_Visitados *F, Vertice *V, int *Seq, int MostraVisitados){
-    Aresta *A;
-    int Ret = -1;
-    
-    //Marca como visitado
-    Enfileira(F,V->IdVertice);    
-    (*Seq)++;
-    cout << endl << *Seq << "?: " << BuscaCodVertice(G->Inicio, V->IdVertice);        
-    //Percorre as arestas
-    for (A=V->Inicio;A!=NULL;A = A->Prox){
-        if (MostraVisitados){
-            cout << endl << "N?s visitados: ";
-            ImprimeVisitados(G, F->Inicio);
-            cout << endl;            
-        }
-    
-        if (Visitado(F->Inicio, A->IdVertice) == -1) { //N?o visitado                
-            //Atualiza a origem com o v?rtice destino da aresta existente e percorre os caminhos
-            V = BuscaVerticePorId(G->Inicio, A->IdVertice);
-            Percorre_DFS_Debug(G, F, V, Seq, MostraVisitados);
-        }
-        else{
-        	Ret = 1;
-		}
-    }    
-}
-
 int GeraDFS(Grafo *G, Fila_Visitados *F, string NomeCavalo){
 	Vertice *V;
-	int Ret = -1;
+	int Ret;
 	
-	V = BuscaVertice(G->Inicio, NomeCavalo);  
-
-    Inicia_Fila(F);        
+	V = BuscaVertice(G->Inicio, NomeCavalo);          
 
     Ret = Percorre_DFS(G, F, V);
+    
+    
+    return Ret;
 }
 
 ////////////////////////////////////////////////////////// FIM  DFS /////////////////////////////////////////////////////////////
@@ -445,6 +421,8 @@ int main(){
     for(Cont = 0; Cont < NumCasosTeste; Cont++){
     	cin>>C1>>C2;
     	
+    	Inicia_Fila(&F);
+    	
     	GeraDFS(&G, &F, C1);
     	ret = GeraDFS(&G, &F, C2);
     	
@@ -455,19 +433,6 @@ int main(){
 			cout<<"falso"<<endl;
 		}
 	}
-
-	/*if (G.NumVertices > 0){
-		cout << endl << "**** LISTAS DE ADJAC�NCIAS ****";
-		ImprimeGrafo(&G, G.Inicio);
-		
-		ImprimeMatrizGrafo(&G);
-		
-		//cout<<endl<<endl<<"_____________Gera DFS - OLIVER_______________"<<endl;
-		
-		//GeraDFS(&G, &F, G.Inicio->Prox->Prox);
-		
-		LimparVertices(G.Inicio);   
-	}*/
 
     return 0;
 }
